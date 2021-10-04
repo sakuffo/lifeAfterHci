@@ -11,7 +11,7 @@ provider "vsphere" {
 # Deploy 2 linux VMs
 module "example-server-linuxvm" {
   source    = "Terraform-VMWare-Modules/vm/vsphere"
-  version   = "X.X.X"
+  version   = "1.0.1"
   vmtemp    = "VM Template Name (Should Alrerady exist)"
   instances = 2
   vmname    = "example-server-linux"

@@ -29,12 +29,13 @@ module "eks" {
     {
       name             = "vmw-runner-group-1"
       instance_type    = "t2.small"
-      desired_capacity = 2
+      asg_desired_capacity = 2
+      min_size         = 2
     },
     {
       name             = "vmw-runner-group-2"
       instance_type    = "t2.small"
-      desired_capacity = 1
+      asg_desired_capacity = 1
     }
   ]
 
