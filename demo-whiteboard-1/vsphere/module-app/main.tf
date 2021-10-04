@@ -1,8 +1,8 @@
 # Configure the VMware vSphere Provider
 provider "vsphere" {
-  user           = "fill"
-  password       = "fill"
-  vsphere_server = "fill"
+  user           = "administrator@vsphere.local"
+  password       = "Vx5eals!!"
+  vsphere_server = "192.2.0.26"
 
   # if you have a self-signed cert
   allow_unverified_ssl = true
@@ -12,14 +12,14 @@ provider "vsphere" {
 module "example-server-linuxvm" {
   source    = "Terraform-VMWare-Modules/vm/vsphere"
   version   = "1.0.1"
-  vmtemp    = "VM Template Name (Should Alrerady exist)"
+  vmtemp    = "ubuntu-2004-template"
   instances = 2
-  vmname    = "example-server-linux"
-  vmrp      = "esxi/Resources - or name of a resource pool"
+  vmname    = "vmware-server-linux"
+  vmrp      = "vxrail-main-datacenter/Resources"
   network = {
-    "Name of the Port Group in vSphere" = ["10.13.113.2", "10.13.113.3"] # To use DHCP create Empty list ["",""]; You can also use a CIDR annotation;
+    "workload-net" = ["10.13.113.2", "10.13.113.3"] # To use DHCP create Empty list ["",""]; You can also use a CIDR annotation;
   }
   vmgateway = "10.13.113.1"
-  dc        = "Datacenter"
-  datastore = "Data Store name(use datastore_cluster for datastore cluster)"
+  dc        = "vxrail-datacenter"
+  datastore = "vxrail-vsan-ds"
 }
