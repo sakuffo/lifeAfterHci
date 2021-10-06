@@ -4,3 +4,4 @@ pre-build/
 technana/
 terraform.*
 *.tfstate
+*.tfstate.backup
