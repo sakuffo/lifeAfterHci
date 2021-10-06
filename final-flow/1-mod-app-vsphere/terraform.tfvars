@@ -1,3 +1,3 @@
-vcenter-user = "administrator@vsphere.local"
-vcenter-password = "Vx5eal!!"
-vcenter-host = "vcenter.domain.local"
+vsphere_user = "administrator@vsphere.local"
+vsphere_password = "Vx5eal!!"
+vsphere_server = "vcenter.domain.local"
