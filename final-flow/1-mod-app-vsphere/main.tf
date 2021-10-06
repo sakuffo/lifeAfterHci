@@ -29,7 +29,7 @@ data "vsphere_datastore" "vmw-datastore" {
 }
 
 data "vsphere_resource_pool" "pool" {
-  name          = "main-rp"
+  name          = "vmw-rp"
   datacenter_id = data.vsphere_datacenter.vmw-datacenter.id
 }
 
@@ -48,10 +48,13 @@ resource "vsphere_virtual_machine" "vm" {
   name             = "vmw-lahci-vm-${count.index}"
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.vmw-datastore.id
+  wait_for_guest_ip_timeout = 0
+  wait_for_guest_net_timeout = 0
+  wait_for_guest_net_routable = false
 
   num_cpus = 2
   memory   = 1024
-  guest_id = "other3xLinux64Guest"
+  guest_id = "ubuntu64Guest"
 
   network_interface {
     network_id = data.vsphere_network.network.id
@@ -59,18 +62,23 @@ resource "vsphere_virtual_machine" "vm" {
 
   disk {
     label = "disk0"
-    size  = 20
+    size  =40
+  }
+
+  clone {
+    template_uuid = data.vsphere_virtual_machine.template.id
   }
 }
 
 resource "vsphere_virtual_machine" "vm-2" {
-  name             = "vmw-lahci-redis"
+  count = 1
+  name             = "vmw-lahci-redis-${count.index}"
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.vmw-datastore.id
 
   num_cpus = 2
   memory   = 1024
-  guest_id = "other3xLinux64Guest"
+  guest_id = "ubuntu64Guest"
 
   network_interface {
     network_id   = "${data.vsphere_network.network.id}"
@@ -80,7 +88,10 @@ resource "vsphere_virtual_machine" "vm-2" {
 
   disk {
     label = "disk0"
-    size  = 20
+    size  = 40
+  }
+  clone {
+    template_uuid = data.vsphere_virtual_machine.template.id
   }
 }
 

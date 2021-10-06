@@ -2,3 +2,5 @@
 .terraform/*
 pre-build/
 technana/
+terraform.*
+*.tfstate
