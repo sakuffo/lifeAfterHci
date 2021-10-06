@@ -57,7 +57,7 @@ resource "vsphere_virtual_machine" "vm" {
   guest_id = "ubuntu64Guest"
 
   network_interface {
-    network_id = data.vsphere_network.network.id
+    network_id = data.vsphere_network.network.id2
   }
 
   disk {
